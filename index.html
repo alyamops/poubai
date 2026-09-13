@@ -53,73 +53,134 @@ audio{width:100%;margin-bottom:30px;opacity:.72}
     
   </article>
 </main>
-
-
 <script>
-// ====== 如果部署了统计后端，把这里替换成你的 Google Apps Script Web App URL ======
 const ANALYTICS_URL = "https://poubai-d4g6gyjeze5a43f45-1487224554.ap-shanghai.app.tcloudbase.com/stats";
-// =================================================================================
 
-const gate=document.getElementById('gate');
-const input=document.getElementById('answer');
-const err=document.getElementById('err');
-const localKey='rain_answer_attempts';
-let attempts=Number(localStorage.getItem(localKey)||0);
+const gate = document.getElementById('gate');
+const input = document.getElementById('answer');
+const err = document.getElementById('err');
+const localKey = 'rain_answer_attempts';
 
+let attempts = Number(localStorage.getItem(localKey) || 0);
+
+/* 获取匿名访客编号 */
 function getVisitorId(){
-  const key='poubai_visitor_id';
-  let id=localStorage.getItem(key);
+  const key = 'poubai_visitor_id';
+  let id = localStorage.getItem(key);
+
   if(!id){
-    id=(crypto.randomUUID ? crypto.randomUUID() : 'v_'+Date.now()+'_'+Math.random().toString(36).slice(2));
-    localStorage.setItem(key,id);
+    id = crypto.randomUUID
+      ? crypto.randomUUID()
+      : 'v_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+
+    localStorage.setItem(key, id);
   }
+
   return id;
 }
-function sendEvent(type, correct){
+
+/* 向统计后台发送数据 */
+function sendEvent(type){
   if(!ANALYTICS_URL) return;
-  const data = new URLSearchParams();
-  data.append('event', type);
-  data.append('correct', correct ? '是' : '否');
-  data.append('visitor_id', getVisitorId());
-  data.append('time', new Date().toLocaleString());
-  try{
-    fetch(ANALYTICS_URL,{
-      method:'POST',
-      headers:{'Content-Type':'application/x-www-form-urlencoded'},
-      body:data.toString()
-    });
-  }catch(e){}
+
+  fetch(ANALYTICS_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      type: type,
+      visitor_id: getVisitorId()
+    })
+  }).catch(function(error){
+    console.log('统计发送失败：', error);
+  });
 }
 
+/* 第一次打开网站，记录一次访问 */
+if(!localStorage.getItem('poubai_has_visited')){
+  localStorage.setItem('poubai_has_visited', '1');
+  sendEvent('visit');
+}
+
+/* 检查答案 */
 function check(){
+
   attempts++;
-  localStorage.setItem(localKey,attempts);
-  const ok=input.value.trim()==='蛋挞';
-  sendEvent('answer',ok);
+  localStorage.setItem(localKey, attempts);
+
+  const ok = input.value.trim() === '蛋挞';
+
+  /* 每答一次都记录 */
+  sendEvent('answer');
+
   if(ok){
-    err.textContent='回答正确。欢迎进来。';
-    err.style.color='#7c6a35';
+
+    /* 记录答对 */
+    sendEvent('correct');
+
+    err.textContent = '回答正确。欢迎进来。';
+    err.style.color = '#7c6a35';
+
     gate.classList.add('hide');
-    setTimeout(()=>{
-      document.querySelectorAll('.line').forEach((p,i)=>setTimeout(()=>p.classList.add('show'),i*180));
-    },650);
+
+    /* 记录看到正文 */
+    if(!localStorage.getItem('poubai_has_read')){
+      localStorage.setItem('poubai_has_read', '1');
+      sendEvent('read');
+    }
+
+    setTimeout(function(){
+      document.querySelectorAll('.line').forEach(function(p, i){
+        setTimeout(function(){
+          p.classList.add('show');
+        }, i * 180);
+      });
+    }, 650);
+
   }else{
-    err.innerHTML='答案不对，再想想哦<br><span style="font-size:12px;">提示：黄色脆皮</span>';
-    err.style.color='#b18108';
+
+    /* 记录答错 */
+    sendEvent('wrong');
+
+    err.innerHTML =
+      '答案不对，再想想哦<br>' +
+      '<span style="font-size:12px;">提示：黄色脆皮</span>';
+
+    err.style.color = '#b18108';
+
     input.select();
   }
 }
-document.getElementById('enter').onclick=check;
-input.addEventListener('keydown',e=>{if(e.key==='Enter')check()});
 
-// 生成缓慢雨幕
-const rain=document.getElementById('rain');
-for(let i=0;i<48;i++){
-  const d=document.createElement('i'); d.className='drop';
-  d.style.left=Math.random()*110+'vw';
-  d.style.animationDuration=(1.8+Math.random()*2.7)+'s';
-  d.style.animationDelay=(-Math.random()*5)+'s';
-  d.style.opacity=.2+Math.random()*.55;
+document.getElementById('enter').onclick = check;
+
+input.addEventListener('keydown', function(e){
+  if(e.key === 'Enter'){
+    check();
+  }
+});
+
+/* 生成缓慢雨幕 */
+const rain = document.getElementById('rain');
+
+for(let i = 0; i < 48; i++){
+
+  const d = document.createElement('i');
+
+  d.className = 'drop';
+
+  d.style.left = Math.random() * 110 + 'vw';
+
+  d.style.animationDuration =
+    (1.8 + Math.random() * 2.7) + 's';
+
+  d.style.animationDelay =
+    (-Math.random() * 5) + 's';
+
+  d.style.opacity =
+    .2 + Math.random() * .55;
+
   rain.appendChild(d);
 }
 </script>
