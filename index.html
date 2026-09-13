@@ -57,7 +57,7 @@ audio{width:100%;margin-bottom:30px;opacity:.72}
 
 <script>
 // ====== 如果部署了统计后端，把这里替换成你的 Google Apps Script Web App URL ======
-const ANALYTICS_URL = "";
+const ANALYTICS_URL = "https://formspree.io/f/xbgjvdqo";
 // =================================================================================
 
 const gate=document.getElementById('gate');
@@ -66,11 +66,29 @@ const err=document.getElementById('err');
 const localKey='rain_answer_attempts';
 let attempts=Number(localStorage.getItem(localKey)||0);
 
-function sendEvent(type, correct){
-  const payload={type,correct:!!correct,time:new Date().toISOString()};
-  if(ANALYTICS_URL){
-    try{fetch(ANALYTICS_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify(payload)})}catch(e){}
+function getVisitorId(){
+  const key='poubai_visitor_id';
+  let id=localStorage.getItem(key);
+  if(!id){
+    id=(crypto.randomUUID ? crypto.randomUUID() : 'v_'+Date.now()+'_'+Math.random().toString(36).slice(2));
+    localStorage.setItem(key,id);
   }
+  return id;
+}
+function sendEvent(type, correct){
+  if(!ANALYTICS_URL) return;
+  const data = new URLSearchParams();
+  data.append('event', type);
+  data.append('correct', correct ? '是' : '否');
+  data.append('visitor_id', getVisitorId());
+  data.append('time', new Date().toLocaleString());
+  try{
+    fetch(ANALYTICS_URL,{
+      method:'POST',
+      headers:{'Content-Type':'application/x-www-form-urlencoded'},
+      body:data.toString()
+    });
+  }catch(e){}
 }
 
 function check(){
