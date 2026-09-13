@@ -79,18 +79,19 @@ function getVisitorId(){
 }
 
 function sendEvent(type){
+  if(!ANALYTICS_URL) return;
 
-  fetch(ANALYTICS_URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
+  fetch(ANALYTICS_URL,{
+    method:'POST',
+    headers:{
+      'Content-Type':'application/json'
     },
-    body: JSON.stringify({
-      type: type,
-      visitor_id: getVisitorId()
+    body:JSON.stringify({
+      type:type,
+      visitor_id:getVisitorId()
     })
   }).catch(function(e){
-    console.log('统计发送失败', e);
+    console.log('统计发送失败',e);
   });
 }
 
