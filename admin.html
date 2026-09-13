@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>剖白 · 访问统计</title>
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  background:#fbf7ee;
+  color:#3f4548;
+  font-family:"Noto Serif SC","Songti SC","STSong",serif;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:25px;
+}
+
+.container{
+  width:min(600px,100%);
+}
+
+h1{
+  text-align:center;
+  font-weight:400;
+  letter-spacing:.2em;
+  margin:0 0 10px;
+}
+
+.subtitle{
+  text-align:center;
+  color:#999;
+  font-size:13px;
+  margin-bottom:30px;
+}
+
+.card{
+  background:#fffdf8;
+  border:1px solid #ded7c9;
+  border-radius:20px;
+  padding:28px;
+  margin-bottom:15px;
+  box-shadow:0 10px 35px rgba(70,65,52,.08);
+}
+
+.number{
+  font-size:38px;
+  text-align:center;
+  margin-bottom:8px;
+}
+
+.label{
+  text-align:center;
+  color:#888;
+  font-size:14px;
+}
+
+.refresh{
+  display:block;
+  margin:25px auto 0;
+  border:0;
+  border-radius:12px;
+  padding:12px 25px;
+  background:#3f4548;
+  color:white;
+  font-size:14px;
+  cursor:pointer;
+}
+
+.note{
+  text-align:center;
+  color:#aaa;
+  font-size:11px;
+  margin-top:25px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>剖白 · 访问统计</h1>
+
+  <div class="subtitle">
+    只供自己查看
+  </div>
+
+  <div class="card">
+    <div class="number" id="visits">0</div>
+    <div class="label">👀 访问人数</div>
+  </div>
+
+  <div class="card">
+    <div class="number" id="answers">0</div>
+    <div class="label">📝 答题次数</div>
+  </div>
+
+  <div class="card">
+    <div class="number" id="wrong">0</div>
+    <div class="label">❌ 答错</div>
+  </div>
+
+  <div class="card">
+    <div class="number" id="correct">0</div>
+    <div class="label">✅ 答对</div>
+  </div>
+
+  <div class="card">
+    <div class="number" id="read">0</div>
+    <div class="label">📖 看到《剖白》</div>
+  </div>
+
+  <button class="refresh" onclick="loadData()">
+    刷新数据
+  </button>
+
+  <div class="note">
+    《剖白》访问数据
+  </div>
+
+</div>
+
+<script>
+
+function loadData(){
+
+  /*
+   * 这里以后连接真正的数据接口。
+   * 目前先显示测试数据。
+   */
+
+  const data = {
+    visits: 128,
+    answers: 96,
+    wrong: 25,
+    correct: 71,
+    read: 71
+  };
+
+  document.getElementById("visits").textContent = data.visits;
+  document.getElementById("answers").textContent = data.answers;
+  document.getElementById("wrong").textContent = data.wrong;
+  document.getElementById("correct").textContent = data.correct;
+  document.getElementById("read").textContent = data.read;
+}
+
+loadData();
+
+</script>
+
+</body>
+</html>
