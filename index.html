@@ -63,15 +63,14 @@ const localKey = 'rain_answer_attempts';
 
 let attempts = Number(localStorage.getItem(localKey) || 0);
 
-/* 获取匿名访客编号 */
 function getVisitorId(){
   const key = 'poubai_visitor_id';
   let id = localStorage.getItem(key);
 
   if(!id){
-    id = crypto.randomUUID
+    id = (crypto.randomUUID
       ? crypto.randomUUID()
-      : 'v_' + Date.now() + '_' + Math.random().toString(36).slice(2);
+      : 'v_' + Date.now() + '_' + Math.random().toString(36).slice(2));
 
     localStorage.setItem(key, id);
   }
@@ -79,9 +78,7 @@ function getVisitorId(){
   return id;
 }
 
-/* 向统计后台发送数据 */
 function sendEvent(type){
-  if(!ANALYTICS_URL) return;
 
   fetch(ANALYTICS_URL, {
     method: 'POST',
@@ -92,18 +89,17 @@ function sendEvent(type){
       type: type,
       visitor_id: getVisitorId()
     })
-  }).catch(function(error){
-    console.log('统计发送失败：', error);
+  }).catch(function(e){
+    console.log('统计发送失败', e);
   });
 }
 
-/* 第一次打开网站，记录一次访问 */
+/* 第一次打开网站，记录访问 */
 if(!localStorage.getItem('poubai_has_visited')){
   localStorage.setItem('poubai_has_visited', '1');
   sendEvent('visit');
 }
 
-/* 检查答案 */
 function check(){
 
   attempts++;
@@ -111,12 +107,12 @@ function check(){
 
   const ok = input.value.trim() === '蛋挞';
 
-  /* 每答一次都记录 */
+  /* 每次答题 */
   sendEvent('answer');
 
   if(ok){
 
-    /* 记录答对 */
+    /* 答对 */
     sendEvent('correct');
 
     err.textContent = '回答正确。欢迎进来。';
@@ -124,14 +120,14 @@ function check(){
 
     gate.classList.add('hide');
 
-    /* 记录看到正文 */
+    /* 第一次看到正文 */
     if(!localStorage.getItem('poubai_has_read')){
       localStorage.setItem('poubai_has_read', '1');
       sendEvent('read');
     }
 
     setTimeout(function(){
-      document.querySelectorAll('.line').forEach(function(p, i){
+      document.querySelectorAll('.line').forEach(function(p,i){
         setTimeout(function(){
           p.classList.add('show');
         }, i * 180);
@@ -140,7 +136,7 @@ function check(){
 
   }else{
 
-    /* 记录答错 */
+    /* 答错 */
     sendEvent('wrong');
 
     err.innerHTML =
@@ -161,7 +157,7 @@ input.addEventListener('keydown', function(e){
   }
 });
 
-/* 生成缓慢雨幕 */
+/* 雨幕 */
 const rain = document.getElementById('rain');
 
 for(let i = 0; i < 48; i++){
@@ -170,7 +166,8 @@ for(let i = 0; i < 48; i++){
 
   d.className = 'drop';
 
-  d.style.left = Math.random() * 110 + 'vw';
+  d.style.left =
+    Math.random() * 110 + 'vw';
 
   d.style.animationDuration =
     (1.8 + Math.random() * 2.7) + 's';
