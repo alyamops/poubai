@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>剖白</title>
+<script>
+var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="https://hm.baidu.com/hm.js?8e6292cdedc7159b3202a63218b83607";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s)})();
+</script>
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id:"3RCKNR9R1CcK7F70",ck:"3RCKNR9R1CcK7F70",autoTrack:true})</script>
+<style>
+:root{--paper:#fbf7ee;--ink:#3f4548;--muted:#8b8a83}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--paper);color:var(--ink);font-family:"Noto Serif SC","Songti SC","STSong",serif}
+body{overflow-x:hidden}
+.rain{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;opacity:.22}
+.drop{position:absolute;top:-15vh;width:1px;height:90px;background:linear-gradient(transparent,#9aa5aa);transform:rotate(10deg);animation:fall linear infinite}
+@keyframes fall{to{transform:translate3d(-15vw,120vh,0) rotate(10deg)}}
+.gate{position:fixed;inset:0;z-index:10;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(251,247,238,.97);transition:opacity 1s,visibility 1s}
+.gate.hide{opacity:0;visibility:hidden}
+.box{width:min(520px,100%);text-align:center;padding:34px 26px;border:1px solid #ded7c9;border-radius:24px;background:rgba(255,253,248,.94);box-shadow:0 20px 70px rgba(91,84,66,.12)}
+.kicker{font-size:12px;letter-spacing:.3em;color:#9a958b;margin-bottom:14px}
+h1{font-weight:400;letter-spacing:.16em;margin:0 0 24px;font-size:29px}
+.question{font-size:20px;margin:16px 0}
+input{width:100%;padding:15px 16px;border:1px solid #d5cec0;border-radius:13px;background:#fffdf8;color:#34383a;font-size:17px;outline:none}
+input:focus{border-color:#b9aa8d;box-shadow:0 0 0 3px rgba(185,170,141,.13)}
+button{margin-top:14px;border:0;border-radius:13px;padding:13px 30px;background:#3f4548;color:#fff;font-size:16px;cursor:pointer}
+.err{min-height:28px;margin-top:13px;color:#a27708;font-size:14px;line-height:1.8}
+main{position:relative;z-index:1;max-width:780px;margin:auto;padding:56px 22px 80px}
+.paper{background:rgba(255,253,248,.72);padding:42px 28px;border-radius:22px;box-shadow:0 18px 55px rgba(70,65,52,.08)}
+.title{text-align:center;letter-spacing:.4em;font-weight:400;margin:0 0 28px}
+.line{font-size:17px;line-height:2.15;text-indent:2em;margin:0 0 1.1em;opacity:0;transform:translateY(14px);transition:opacity 1.1s ease,transform 1.1s ease}
+.line.show{opacity:1;transform:none}
+.access-denied{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;padding:24px;background:var(--paper);text-align:center}
+.access-box{width:min(520px,100%);padding:36px 26px;border:1px solid #ded7c9;border-radius:24px;background:rgba(255,253,248,.94);box-shadow:0 20px 70px rgba(91,84,66,.12)}
+.access-title{font-size:25px;letter-spacing:.16em;margin-bottom:18px}
+.access-text{color:#8b8a83;font-size:14px;line-height:1.9}
+</style>
+</head>
+<body>
+<div class="access-denied" id="accessDenied"><div class="access-box"><div class="access-title">剖白</div><div class="access-text">请通过邀请链接进入。</div></div></div>
+<div class="rain" id="rain"></div>
+<section class="gate" id="gate">
+<div class="box">
+<div class="kicker">剖白 · 入口</div>
+<h1>请先回答一个问题</h1>
+<div class="question">我最喜欢吃什么？</div>
+<input id="answer" autocomplete="off" placeholder="输入你的答案">
+<button id="enter">进入</button>
+<div class="err" id="err"></div>
+</div>
+</section>
+<main id="mainContent">
+<article class="paper">
+<h1 class="title">剖白</h1>
+<div id="essay">
+<p class="line">人们把眼眶里湿漉了四季的雨叫人生。</p>
+<p class="line">我曾对这个譬喻不以为意，想着在短暂的岁月中我滞留在眼底的潮气，总有一天会被时间风干，散进风里，不留痕迹。</p>
+<p class="line">那时候的我总怪自己眼眶太浅，盛不下半分翻涌的情绪。愤怒的脚步加速靠近我，迫使心脏的鼓点二倍速快进；无声有声的细碎恶意钻进耳朵，撕裂我的耳膜；权衡的算盘敲在我身上，压下一道又一道深深浅浅的伤疤，我想：没事，睡一觉就好了，醒来就当没发生过。</p>
+<p class="line">很多时候我分不清脸上的是雨还是泪，只知道后颈总是凉的，胸腔总是闷的，像被困在了一场连绵的梅雨季里，连呼吸都裹着湿冷的重量，好沉，我的挣扎显得苍白无力。</p>
+<p class="line">小时候总怨自己的存在给别人带来麻烦，怨自己太敏感，太怯懦，连一场情绪都兜不住，总是变成氛围的破坏者，批判的视线像针一样刺穿我的咽喉，我失音了好多年。我以为等长大就好了，等走出那片天空，雨自然就停了。我以为我会变成很沉稳的人，不会再为小事红了眼眶，不会再为人事变迁而惘然若失，不会再站在人生的路口，迷茫得不知去处。</p>
+<p class="line">而现在我到了如今年岁，走了不算短的路，遇见过形形色色的人，经历了几场仓促的聚散，也晒过很多个大晴天。我以为自己早就干透了，直到某个寻常的傍晚，天又落起雨，我置身于没有一砖一瓦的世界，只剩空旷，风卷着雨丝扑在脸上，那股熟悉的，令人发闷的湿意忽然就涌了上来。我的情绪就像一盏浓茶，风轻抚过杯身时它有了涟漪，顷刻间苦涩就迅速蔓延在我的血管肌肉里，肿胀、爆发，我无从下手。我透支我的精力感受世界：所有的一切滑过我生命的湖畔，雨不留痕，风不停歇，万物不生长。我就像一块营养消失殆尽的，早已干涸、龟裂、贫瘠的土地，创造不出任何价值，身体无法承载的泪水全都变成了雨水，浇灌在结痂的沟壑里，却是蚍蜉撼树。</p>
+<p class="line">一瞬间我好像又回到了很多年前，惊觉怀里还是揣着忐忑和害怕。雨和风纠缠，我闻到了空气中的咸腥味，嗓子里又哽咽着难以吞吐的酸涩，无助从潮湿的、模糊的视线中蔓延开来，勒地我喘不过气，我只能蜷缩在地上感受濒死与绝望，我只能保持缄默以乞求上天饶恕我，我只能抱紧自己，把飘散的肌肉摁回到骨骼上，感受到肉体的实感才安心些。我忽然懂了，那场雨从来没停过，它不只是困在我的眼眶里了，它落进了我的骨头里，融进了我的感知里，变成了我看待世界的方式。</p>
+<p class="line">那些曾经让我孤单，委屈，又秘而不宣的潮湿，最终都长成了我身体的一部分。泪水描摹我的悲观，从眼角落下开始就一点一点瓦解我这副空壳，最后，破败的躯壳苟延残喘，碎片和眼泪都藏在淅淅沥沥的雨声里呜咽。从未有人拭去我的泪水，它们在枕头里发芽，缠绕住我的呼吸，只说我不够坚强。</p>
+<p class="line">原来这场连绵不绝的雨，早就困住了我的灵魂，它在我最生涩的年纪里，把我的一切都细细浸润了一遍，让现在的我不得不带着疼痛，清醒地，混乱地，相悖地活着。我清楚地感觉到，我的灵魂开始枯竭，我开始腐烂了，我的一切都很糟糕。</p>
+<p class="line">假设我从此刻用一把小刀清算我的人生，纵观旧往，我就像一颗泡泡，太轻太脆弱，不管落在哪里，都只能以爆裂结束，谁都托不住，也无心托住。我开始记不住风的触感和雨的味道了，只听见心脏在强有力地敲击我的耳朵，誓死震碎这副残破的身躯。我的认知变得麻木、单一、迟钝，我的行为变得笨拙、极端、偏执，我的精力不足以让我强颜欢笑，我的思绪甚至不支持我在生活做出一份完美的答卷，它们非要一条一条相撞，撞得头破血流，我的意志与灵魂早就溺死在了沼泽里，隔了这么多年光阴，我救不出它们，谁都救不出它们。我的痛苦从未被时间稀释，只是在我的主观遗忘中一点一点的堆积，直到我承受不了这一切，然后轰然倒塌。</p>
+<p class="line">泡泡，和雨一样，终点是坠落。</p>
+<p class="line">我的精神世界变得衰败、寂寥、一塌糊涂，像个风烛残年的老人。</p>
+<p class="line">人生的意义我咀嚼不到。</p>
+<p class="line">我会反复坠入雨季，反复溺亡，又复生，又溺亡。为什么要让我如此痛苦地活着。我就像被上天抛弃的孩子，像个不会处事残疾人——读不懂暗语，看不透人情。我距离死亡只有一个呼吸的距离，可这一路实在苦涩，难以下咽。而感受痛苦，却成为了我活着的唯一证明，是在惩罚我的软弱吗。</p>
+<p class="line">可天地万物不会为我悲鸣，也不会心存怜悯而馈赠我一丝喘息的机会。我想要挤压出身体中翻涌的潮气，可即便我已经蜷缩成一块小小的石子也无济于事，我知道我需要让自己被真正晒透，但是身体好重，每往上一分，就下坠两分，我好痛苦，我在努力。</p>
+<p class="line">我宁愿做一棵木讷的树，独在自己的世界里感受春夏秋冬，只是待在那生根发芽，不懂悲欢也从不依靠，即便看着自己的枝桠枯槁也能无动于衷，就在那安静地丰盈我的年轮，偶尔为路过的飞鸟提供安歇的地方，也算有价值。</p>
+<p class="line">这个易变的世界我不喜欢，那就把我染进画里，刻进碑里，埋进土里，就让我停在这吧，我已经没有勇气往前走了。</p>
+<p class="line">药物麻痹我的神经，让我迅速入睡，那我要吃多少才可以有甜美的梦境，吃多少才可以让我坦然地安静睡去——不用醒来，不用有任何人因为我的消失而承担本不应该承担的后果，就像我完全不曾存在。</p>
+</div>
+</article>
+</main>
+<script>
+function track51(e){try{if(window.LA&&typeof window.LA.track==="function")window.LA.track(e)}catch(x){}}
+function trackBaidu(a,l){try{if(window._hmt)window._hmt.push(["_trackEvent","剖白",a,l||""])}catch(x){}}
+const params=new URLSearchParams(location.search),key=params.get("key"),gate=document.getElementById("gate"),input=document.getElementById("answer"),err=document.getElementById("err");
+if(key!=="2589"){document.getElementById("accessDenied").style.display="flex";gate.style.display="none";document.getElementById("mainContent").style.display="none"}
+let started=sessionStorage.getItem("poubai_started")==="1";
+let hasOpenedArticle=localStorage.getItem("poubai_article_opened")==="1";
+let articleActive=false;
+let articleLeaveSent=false;
+let timer10=null,timer30=null,timer60=null,timer3m=null,timer5m=null;
+function clearArticleTimers(){
+if(timer10)clearTimeout(timer10);
+if(timer30)clearTimeout(timer30);
+if(timer60)clearTimeout(timer60);
+if(timer3m)clearTimeout(timer3m);
+if(timer5m)clearTimeout(timer5m);
+timer10=null;
+timer30=null;
+timer60=null;
+timer3m=null;
+timer5m=null;
+}
+function startArticleTracking(){
+clearArticleTimers();
+articleActive=true;
+articleLeaveSent=false;
+timer10=setTimeout(function(){if(articleActive)track51("article_10s")},10000);
+timer30=setTimeout(function(){if(articleActive)track51("article_30s")},30000);
+timer60=setTimeout(function(){if(articleActive)track51("article_60s")},60000);
+timer3m=setTimeout(function(){if(articleActive)track51("article_3m")},180000);
+timer5m=setTimeout(function(){if(articleActive)track51("article_5m")},300000);
+}
+function articleLeave(){
+if(articleActive&&!articleLeaveSent){
+articleLeaveSent=true;
+articleActive=false;
+clearArticleTimers();
+track51("article_leave");
+}
+}
+function check(){
+if(!started){
+started=true;
+sessionStorage.setItem("poubai_started","1");
+track51("start_answer");
+trackBaidu("开始答题","进入答题")
+}
+if(input.value.trim()==="蛋挞"){
+track51("answer_correct");
+trackBaidu("答题成功","蛋挞");
+if(!hasOpenedArticle){
+hasOpenedArticle=true;
+localStorage.setItem("poubai_article_opened","1");
+track51("article_open");
+trackBaidu("文章打开","首次打开")
+}else{
+track51("article_repeat");
+trackBaidu("文章重复打开","再次打开")
+}
+err.textContent="回答正确。欢迎进来。";
+err.style.color="#7c6a35";
+gate.classList.add("hide");
+startArticleTracking();
+setTimeout(function(){document.querySelectorAll(".line").forEach(function(p,i){setTimeout(function(){p.classList.add("show")},i*180)})},650)
+}else{
+track51("answer_wrong");
+trackBaidu("答题错误","黄色 外酥皮 里布丁");
+err.innerHTML='答案不对，再想想哦<br><span style="font-size:12px;">提示：黄色 外酥皮 里布丁</span>';
+err.style.color="#b18108";
+input.select()
+}}
+document.getElementById("enter").onclick=check;
+input.addEventListener("keydown",function(e){if(e.key==="Enter")check()});
+document.addEventListener("visibilitychange",function(){if(document.visibilityState==="hidden")articleLeave()});
+window.addEventListener("pagehide",articleLeave);
+const rain=document.getElementById("rain");
+for(let i=0;i<48;i++){const d=document.createElement("i");d.className="drop";d.style.left=Math.random()*110+"vw";d.style.animationDuration=1.8+Math.random()*2.7+"s";d.style.animationDelay=-Math.random()*5+"s";d.style.opacity=.2+Math.random()*.55;rain.appendChild(d)}
+</script>
+</body>
+</html>
