@@ -41,20 +41,8 @@ main{position:relative;z-index:1;max-width:780px;margin:auto;padding:56px 22px 8
 <body>
 <div class="access-denied" id="accessDenied"><div class="access-box"><div class="access-title">剖白</div><div class="access-text">请通过邀请链接进入。</div></div></div>
 <div class="rain" id="rain"></div>
-<section class="gate" id="gate">
-<div class="box">
-<div class="kicker">剖白 · 入口</div>
-<h1>请先回答一个问题</h1>
-<div class="question">我最喜欢吃什么？</div>
-<input id="answer" autocomplete="off" placeholder="输入你的答案">
-<button id="enter">进入</button>
-<div class="err" id="err"></div>
-</div>
-</section>
-<main id="mainContent">
-<article class="paper">
-<h1 class="title">剖白</h1>
-<div id="essay">
+<section class="gate" id="gate"><div class="box"><div class="kicker">剖白 · 入口</div><h1>请先回答一个问题</h1><div class="question">我最喜欢吃什么？</div><input id="answer" autocomplete="off" placeholder="输入你的答案"><button id="enter">进入</button><div class="err" id="err"></div></div></section>
+<main id="mainContent"><article class="paper"><h1 class="title">剖白</h1><div id="essay">
 <p class="line">人们把眼眶里湿漉了四季的雨叫人生。</p>
 <p class="line">我曾对这个譬喻不以为意，想着在短暂的岁月中我滞留在眼底的潮气，总有一天会被时间风干，散进风里，不留痕迹。</p>
 <p class="line">那时候的我总怪自己眼眶太浅，盛不下半分翻涌的情绪。愤怒的脚步加速靠近我，迫使心脏的鼓点二倍速快进；无声有声的细碎恶意钻进耳朵，撕裂我的耳膜；权衡的算盘敲在我身上，压下一道又一道深深浅浅的伤疤，我想：没事，睡一觉就好了，醒来就当没发生过。</p>
@@ -73,86 +61,154 @@ main{position:relative;z-index:1;max-width:780px;margin:auto;padding:56px 22px 8
 <p class="line">我宁愿做一棵木讷的树，独在自己的世界里感受春夏秋冬，只是待在那生根发芽，不懂悲欢也从不依靠，即便看着自己的枝桠枯槁也能无动于衷，就在那安静地丰盈我的年轮，偶尔为路过的飞鸟提供安歇的地方，也算有价值。</p>
 <p class="line">这个易变的世界我不喜欢，那就把我染进画里，刻进碑里，埋进土里，就让我停在这吧，我已经没有勇气往前走了。</p>
 <p class="line">药物麻痹我的神经，让我迅速入睡，那我要吃多少才可以有甜美的梦境，吃多少才可以让我坦然地安静睡去——不用醒来，不用有任何人因为我的消失而承担本不应该承担的后果，就像我完全不曾存在。</p>
-</div>
-</article>
-</main>
+</div></article></main>
 <script>
 function track51(e){try{if(window.LA&&typeof window.LA.track==="function")window.LA.track(e)}catch(x){}}
 function trackBaidu(a,l){try{if(window._hmt)window._hmt.push(["_trackEvent","剖白",a,l||""])}catch(x){}}
-const params=new URLSearchParams(location.search),key=params.get("key"),gate=document.getElementById("gate"),input=document.getElementById("answer"),err=document.getElementById("err");
-if(key!=="2589"){document.getElementById("accessDenied").style.display="flex";gate.style.display="none";document.getElementById("mainContent").style.display="none"}
+
+const params=new URLSearchParams(location.search);
+const key=params.get("key");
+const gate=document.getElementById("gate");
+const input=document.getElementById("answer");
+const err=document.getElementById("err");
+const article=document.querySelector(".paper");
+
+if(key!=="2589"){
+document.getElementById("accessDenied").style.display="flex";
+gate.style.display="none";
+document.getElementById("mainContent").style.display="none";
+}
+
 let started=sessionStorage.getItem("poubai_started")==="1";
 let hasOpenedArticle=localStorage.getItem("poubai_article_opened")==="1";
-let articleActive=false;
-let articleLeaveSent=false;
-let timer10=null,timer30=null,timer60=null,timer3m=null,timer5m=null;
+
+let articleStarted=false;
+let articleLeft=false;
+let articleTimer10=null;
+let articleTimer30=null;
+let articleTimer60=null;
+let articleTimer3m=null;
+let articleTimer5m=null;
+
 function clearArticleTimers(){
-if(timer10)clearTimeout(timer10);
-if(timer30)clearTimeout(timer30);
-if(timer60)clearTimeout(timer60);
-if(timer3m)clearTimeout(timer3m);
-if(timer5m)clearTimeout(timer5m);
-timer10=null;
-timer30=null;
-timer60=null;
-timer3m=null;
-timer5m=null;
+clearTimeout(articleTimer10);
+clearTimeout(articleTimer30);
+clearTimeout(articleTimer60);
+clearTimeout(articleTimer3m);
+clearTimeout(articleTimer5m);
 }
+
 function startArticleTracking(){
-clearArticleTimers();
-articleActive=true;
-articleLeaveSent=false;
-timer10=setTimeout(function(){if(articleActive)track51("article_10s")},10000);
-timer30=setTimeout(function(){if(articleActive)track51("article_30s")},30000);
-timer60=setTimeout(function(){if(articleActive)track51("article_60s")},60000);
-timer3m=setTimeout(function(){if(articleActive)track51("article_3m")},180000);
-timer5m=setTimeout(function(){if(articleActive)track51("article_5m")},300000);
+if(articleStarted)return;
+articleStarted=true;
+articleLeft=false;
+
+articleTimer10=setTimeout(function(){
+track51("article_10s");
+trackBaidu("文章停留10秒","10秒");
+},10000);
+
+articleTimer30=setTimeout(function(){
+track51("article_30s");
+trackBaidu("文章停留30秒","30秒");
+},30000);
+
+articleTimer60=setTimeout(function(){
+track51("article_60s");
+trackBaidu("文章停留60秒","60秒");
+},60000);
+
+articleTimer3m=setTimeout(function(){
+track51("article_3m");
+trackBaidu("文章停留3分钟","3分钟");
+},180000);
+
+articleTimer5m=setTimeout(function(){
+track51("article_5m");
+trackBaidu("文章停留5分钟","5分钟");
+},300000);
 }
-function articleLeave(){
-if(articleActive&&!articleLeaveSent){
-articleLeaveSent=true;
-articleActive=false;
+
+function trackArticleLeave(){
+if(!articleStarted||articleLeft)return;
+articleLeft=true;
 clearArticleTimers();
 track51("article_leave");
+trackBaidu("文章离开","离开文章");
 }
-}
+
 function check(){
 if(!started){
 started=true;
 sessionStorage.setItem("poubai_started","1");
 track51("start_answer");
-trackBaidu("开始答题","进入答题")
+trackBaidu("开始答题","进入答题");
 }
+
 if(input.value.trim()==="蛋挞"){
 track51("answer_correct");
 trackBaidu("答题成功","蛋挞");
+
 if(!hasOpenedArticle){
 hasOpenedArticle=true;
 localStorage.setItem("poubai_article_opened","1");
 track51("article_open");
-trackBaidu("文章打开","首次打开")
+trackBaidu("文章打开","首次打开");
 }else{
 track51("article_repeat");
-trackBaidu("文章重复打开","再次打开")
+trackBaidu("文章重复打开","再次打开");
 }
+
 err.textContent="回答正确。欢迎进来。";
 err.style.color="#7c6a35";
 gate.classList.add("hide");
+
+setTimeout(function(){
+document.querySelectorAll(".line").forEach(function(p,i){
+setTimeout(function(){
+p.classList.add("show");
+},i*180);
+});
+},650);
+
 startArticleTracking();
-setTimeout(function(){document.querySelectorAll(".line").forEach(function(p,i){setTimeout(function(){p.classList.add("show")},i*180)})},650)
+
 }else{
 track51("answer_wrong");
 trackBaidu("答题错误","黄色 外酥皮 里布丁");
 err.innerHTML='答案不对，再想想哦<br><span style="font-size:12px;">提示：黄色 外酥皮 里布丁</span>';
 err.style.color="#b18108";
-input.select()
-}}
+input.select();
+}
+}
+
 document.getElementById("enter").onclick=check;
-input.addEventListener("keydown",function(e){if(e.key==="Enter")check()});
-document.addEventListener("visibilitychange",function(){if(document.visibilityState==="hidden")articleLeave()});
-window.addEventListener("pagehide",articleLeave);
+
+input.addEventListener("keydown",function(e){
+if(e.key==="Enter")check();
+});
+
+document.addEventListener("visibilitychange",function(){
+if(document.visibilityState==="hidden"){
+trackArticleLeave();
+}
+});
+
+window.addEventListener("pagehide",function(){
+trackArticleLeave();
+});
+
 const rain=document.getElementById("rain");
-for(let i=0;i<48;i++){const d=document.createElement("i");d.className="drop";d.style.left=Math.random()*110+"vw";d.style.animationDuration=1.8+Math.random()*2.7+"s";d.style.animationDelay=-Math.random()*5+"s";d.style.opacity=.2+Math.random()*.55;rain.appendChild(d)}
+
+for(let i=0;i<48;i++){
+const d=document.createElement("i");
+d.className="drop";
+d.style.left=Math.random()*110+"vw";
+d.style.animationDuration=1.8+Math.random()*2.7+"s";
+d.style.animationDelay=-Math.random()*5+"s";
+d.style.opacity=.2+Math.random()*.55;
+rain.appendChild(d);
+}
 </script>
 </body>
 </html>
